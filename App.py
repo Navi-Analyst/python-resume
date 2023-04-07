@@ -2,6 +2,9 @@ import streamlit as st
 import requests
 from streamlit_lottie import st_lottie
 from PIL import Image
+from pathlib import Path
+
+
 
 
 # Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
@@ -31,6 +34,10 @@ img_resume_icon = Image.open("images/resume-icon.png")
 img_GA_Advanced = Image.open("images/GA-Advanced-Certificate.JPG")
 img_GA_GAIQ = Image.open("images/GAIQ-Certificate.JPG")
 img_GTM = Image.open("images/GTM-Certificate.JPG")
+current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+resume_file = current_dir / "images" / "Navi-CV.pdf"
+with open(resume_file, "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
 
 # ---- HEADER SECTION ----
 with st.container():
@@ -45,7 +52,7 @@ with st.container():
     with text_column:
         st.title("A Marketing Data Analyst & Strategist From planet earth ")
         st.write(
-            "I am passionate about finding ways to use Python and all Data collected and mined throuhout the whole user lifecycle in our digital system to be more efficient and effective in achieveing business goals."
+            "I am passionate about finding ways to use Technology stacks and all Data collected and minned throuhout the whole user lifecycle in our digital system to be more efficient and effective in achieveing business goals."
             " Analyzing data since 1988, professionally since 2015 :smile:"
      )
         
@@ -54,13 +61,20 @@ with st.container():
             st.image(img_resume_icon, width = 50)
             st.image(img_linkedin_logo, width = 50)
             st.image(img_tableau_logo, width = 50)
+            st.write("📫")
         with text_column:
             st.write(" ")
-            st.write("[Download my Resume >](https://docs.google.com/document/d/1LnkfbyBX03QKO66VPxckWn74Lo_W9mMo/edit?usp=sharing&ouid=103329081263905769152&rtpof=true&sd=true)")
+            st.download_button(
+                label=" 📄 Download Resume",
+                data=PDFbyte,
+                file_name=resume_file.name,
+                mime="application/octet-stream",
+            )
             st.write(" ")
             st.write("[Linkedin Profile >](https://www.linkedin.com/in/navaneeth-murali-mba-64692263/)")
             st.write(" ")
             st.write("[Tableau Viz samples >](https://public.tableau.com/app/profile/navaneeth.murali7129)")
+            st.write("navaneethmurali.mba@gmail.com")
 
 
 # ---- WHAT I DO ----
@@ -152,15 +166,22 @@ with st.container():
                 """
             )
     with column5:
-                st.subheader("Tech")
+                st.subheader("Programming Languages")
                 st.write(
                     """
                     - Javascript
                     - HTML / CSS
+                    - Python
                     """
                 )
     with column6:
-        st.write(" ")            
+                st.subheader("Design")
+                st.write(
+                    """
+                    - Wordpress
+                    - Canva
+                    """
+                )          
     
 
 # ---- CONTACT ----
